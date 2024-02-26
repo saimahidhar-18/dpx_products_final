@@ -36,8 +36,12 @@ public class DpxResource {
     public Response getProducts(@HeaderParam("Username") String username){
         try{
             List<Product> products = dpxservice1.getAllProducts(username);
-            if(products.size()==0)
-                return Response.ok("products collection is empty").build();
+            if(products.isEmpty()){
+                Responsebody responsebody= new Responsebody();
+                responsebody.setCode("204 No content");
+                responsebody.setMessage("products collection is empty");
+                return Response.status(Response.Status.NOT_FOUND).entity(responsebody).build();
+            }
             else
                 return Response.ok(products).build();
         }
@@ -86,8 +90,12 @@ public class DpxResource {
             Product product = dpxservice1.getProduct(id);
             if (product != null) 
                 return Response.ok(product).build();
-            else 
-                return Response.status(Response.Status.NOT_FOUND).entity("The Product id is invalid!").build();
+            else {
+                Responsebody responsebody= new Responsebody();
+                responsebody.setCode("404 Not Found");
+                responsebody.setMessage("The Product id is invalid!");
+                return Response.status(Response.Status.NOT_FOUND).entity(responsebody).build();
+            }
             
         }
         catch (MongoException e) {
@@ -103,13 +111,21 @@ public class DpxResource {
         try{
             UpdateResult result = dpxservice1.updateProduct(product);
             if(result.wasAcknowledged()){
-                if(result.getMatchedCount()==0)
-                    return Response.status(Response.Status.NOT_FOUND).entity("The Product id is invalid!").build();
+                if(result.getMatchedCount()==0){
+                    Responsebody responsebody= new Responsebody();
+                    responsebody.setCode("404 Not Found");
+                    responsebody.setMessage("The Product id is invalid!");
+                    return Response.status(Response.Status.NOT_FOUND).entity(responsebody).build();
+                }
+                   // return Response.status(Response.Status.NOT_FOUND).entity("The Product id is invalid!").build();
                 else 
-                    return Response.ok(product).build();
-            }
+                        return Response.ok(product).build();
+                }
             else{
-                return Response.status(Response.Status.NOT_MODIFIED).entity("Server couldn't acknowledge the update operation.").build();
+                Responsebody responsebody= new Responsebody();
+                responsebody.setCode("503 Service Unavailable");
+                responsebody.setMessage("Server couldn't acknowledge the update operation.");
+                return Response.status(Response.Status.NOT_MODIFIED).entity(responsebody).build();
             }
         }
         catch (MongoException e) {
@@ -124,10 +140,19 @@ public class DpxResource {
     public Response deleteProduct(@PathParam("productId") long id) {
         try {
             DeleteResult result = dpxservice1.deleteProduct(id);
-            if (result.getDeletedCount() == 0) 
-                return Response.status(Response.Status.NOT_FOUND).entity("The Product id is invalid!").build();             
-            else 
-                return Response.ok("Deletion successful.").build();            
+            if (result==null) {
+                Responsebody responsebody= new Responsebody();
+                responsebody.setCode("404 Not found");
+                responsebody.setMessage("The product id is invalid");
+                return Response.status(Response.Status.NOT_FOUND).entity(responsebody).build();
+            }           
+            else {
+                Responsebody responsebody= new Responsebody();
+                responsebody.setCode("200 OK");
+                responsebody.setMessage("Deletion Successful");
+                return Response.ok(responsebody).build();  
+
+            }     
         } 
         catch (MongoException e) {
             

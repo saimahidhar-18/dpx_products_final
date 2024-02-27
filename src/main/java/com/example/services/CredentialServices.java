@@ -47,9 +47,16 @@ public class CredentialServices {
             .append("state", "inactive");
 
 
+            Document user4 = new Document("username","Bella")
+            .append("password", BCrypt.hashpw("password1234", BCrypt.gensalt()))
+            .append("role", "consumer")
+            .append("state", "inactive");
+
             credCollection.insertOne(user1);
             credCollection.insertOne(user2);
             credCollection.insertOne(user3);
+            credCollection.insertOne(user4);
+
         }
         
     }

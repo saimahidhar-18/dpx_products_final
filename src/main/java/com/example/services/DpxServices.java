@@ -50,8 +50,12 @@ public class DpxServices {
                     .append("copyUrl", "https://www.google.co.in/")
             ))
             .append("users", Arrays.asList(
-                new Document("userName", "Harry"),
-                new Document("userName", "Ron")));
+                new Document("userName", "Harry")
+                    .append("id", 311L)
+                    .append("stage", "producer"),
+                new Document("userName", "Ron")
+                    .append("id", 312L)
+                    .append("stage", "consumer")));
 
             Document prod2 = new Document("id",112L)
             .append("name", "Customised Weather Data Validation")
@@ -70,8 +74,12 @@ public class DpxServices {
                     .append("copyUrl", "https://www.google.co.in/")
             ))
             .append("users", Arrays.asList(
-                new Document("userName", "Harry"),
-                new Document("userName", "Hermoine")));
+                new Document("userName", "Harry")
+                    .append("id", 311L)
+                    .append("stage", "producer"),
+                new Document("userName", "Hermoine")
+                    .append("id", 312L)
+                    .append("stage", "consumer")));
 
             Document prod3 = new Document("id",113L)
             .append("name", "Weather Source: OnPoint Weather Impact Indices")
@@ -90,8 +98,12 @@ public class DpxServices {
                     .append("copyUrl", "https://www.google.co.in/")
             ))
             .append("users", Arrays.asList(
-                new Document("userName", "Harry"),
-                new Document("userName", "Ron")));
+                new Document("userName", "Harry")
+                    .append("id", 311L)
+                    .append("stage", "producer"),
+                new Document("userName", "Ron")
+                    .append("id", 312L)
+                    .append("stage", "consumer")));
 
             Document prod4 = new Document("id",114L)
             .append("name", "LIVE Daily Weather Feed | United States Weather Data")
@@ -109,13 +121,41 @@ public class DpxServices {
                     .append("copyUrl", "https://www.google.co.in/")
             ))
             .append("users", Arrays.asList(
-                new Document("userName", "Harry"),
-                new Document("userName", "Hermoine")));
+                new Document("userName", "Harry")
+                    .append("id", 311L)
+                    .append("stage", "producer"),
+                new Document("userName", "Hermoine")
+                    .append("id", 312L)
+                    .append("stage", "consumer")));
 
+            Document prod5 = new Document("id",115L)
+            .append("name", "LIVE Daily Weather Feed | United States Weather Data")
+            .append("description", "AWIS Weather Services houses, maintains, and constantly updates an extensive database full of Climate and Weather Data. We offer a LIVE Weather Data Feed that is updated daily. Real United States Weather Observations, checked for quality and reliability. Sorted by Zip Code.")
+            .append("domain", "weather data")
+            .append("date", new Date())
+            .append("status", "draft")
+            .append("producer", "Harry")
+            .append("dataList", Arrays.asList(
+                new Document("id", 211L)
+                    .append("urlName", "dp5dl1")
+                    .append("urlDescription", "llllllllllll")
+                    .append("creationDate", "2003")
+                    .append("lastUpdateDate", "2023")
+                    .append("copyUrl", "https://www.google.co.in/")
+            ))
+            .append("users", Arrays.asList(
+                new Document("userName", "Harry")
+                    .append("id", 311L)
+                    .append("stage", "producer"),
+                new Document("userName", "Bella")
+                    .append("id", 312L)
+                    .append("stage", "consumer")));
+        
             collection.insertOne(prod1);
             collection.insertOne(prod2);
             collection.insertOne(prod3);
             collection.insertOne(prod4);
+            collection.insertOne(prod5);
 
         }
     }
@@ -136,8 +176,8 @@ public class DpxServices {
             String desc = document.getString("description");
             String domain = document.getString("domain");
             String status = document.getString("status");
-            String author = document.getString("producer");
-            Product m1=new Product(id,name,desc, domain, status,author);
+            String producer = document.getString("producer");
+            Product m1=new Product(id,name,desc, domain, status,producer);
 
             if(status.equals("published")){
                 if(role.equals("producer"))
@@ -234,13 +274,14 @@ public class DpxServices {
     }
 
     public Product addProduct(Product product){
-        
+            String status = (product.getStatus() != null) ? product.getStatus() : "draft";
+
             product.setId((long)collection.countDocuments()+111);
     
             Document document = new Document("id", product.getId())
                     .append("name", product.getName())
                     .append("domain", product.getDomain())
-                    .append("status", product.getStatus())
+                    .append("status", status)
                     .append("description", product.getDescription())
                     .append("producer", product.getProducer());
                    
@@ -253,6 +294,8 @@ public class DpxServices {
 
     public UpdateResult updateProduct(Product product){
         if(product.getId()<=0) return null;
+        String status = (product.getStatus() != null) ? product.getStatus() : "draft";
+
 
         UpdateResult result = collection.updateOne(
             Filters.eq("id", product.getId()),
@@ -260,7 +303,7 @@ public class DpxServices {
                 Updates.set("name", product.getName()),
                 Updates.set("description", product.getDescription()),
                 Updates.set("domain", product.getDomain()),
-                Updates.set("status", product.getStatus()),
+                Updates.set("status", status),
                 Updates.set("users", product.getUsers())
                // Updates.set("urls", product.getUrls())
                 

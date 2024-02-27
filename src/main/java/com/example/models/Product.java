@@ -10,7 +10,6 @@ public class Product {
     private String name;
     private String description;
     private String domain;
-    private Date date;
     private String status;
     private String producer;
    // private List<String> urls;
@@ -26,9 +25,8 @@ public class Product {
         this.name = name;
         this.description = description;
         this.domain = domain;
-        this.date = new Date();
         this.status = status;
-       
+        this.producer = producer;
        // this.urls = urls;
        // this.users= users;
     }
@@ -85,12 +83,7 @@ public class Product {
     public void setDomain(String Domain) {
         this.domain = Domain;
     }
-    public Date getDate() {
-        return date;
-    }
-    public void setDate(Date date) {
-        this.date = date;
-    }
+  
     public String getStatus() {
         return status;
     }

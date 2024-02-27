@@ -9,6 +9,7 @@ import org.bson.Document;
 
 import com.example.models.Product;
 import com.example.models.UserList;
+import com.example.resources.CredentialResource;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -22,6 +23,8 @@ public class UserListServices {
     MongoClient mongoClient = MongoClients.create(CONNECTION_STRING);
     MongoDatabase database = mongoClient.getDatabase("data_products");
     MongoCollection<Document> collection = database.getCollection("products");
+
+    CredentialServices credentialServices = CredentialResource.credentialServices;
         
     public UserListServices(){
 
@@ -38,7 +41,10 @@ public class UserListServices {
 
             for (Document doc : doclist){
                 UserList userList = new UserList();
+                userList.setId(doc.getLong("id"));
                 userList.setUserName(doc.getString("userName"));
+                userList.setStage(credentialServices.getUserRole(userList.getUserName()));
+                //userList.setLastviewed();
                 userlist.add(userList);
             }
             Product p = new Product(id, name, userlist);
@@ -56,8 +62,10 @@ public class UserListServices {
             if (doclist == null) {
                 doclist = new ArrayList<>();
             }
-
-            Document newobj = new Document("userName", newUser);
+            long id = doclist.size()+311;
+            Document newobj = new Document("userName", newUser)
+            .append("id", id)
+            .append("stage", credentialServices.getUserRole(newUser));
             doclist.add(newobj);
             collection.updateOne(Filters.eq("id", productid), Updates.set("users", doclist));
 

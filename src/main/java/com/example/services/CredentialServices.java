@@ -110,32 +110,25 @@ public class CredentialServices {
     }
 
 
-    public boolean userLogout(){
+    public boolean userLogout(String username){
+      
         // FindIterable<Document> docs = credCollection.find();
         // MongoCursor<Document> cursor = docs.iterator();
-        // while(cursor.hasNext()){
+        
+        // while(cursor.hasNext()) {
         //     Document doc = cursor.next();
-        //     if(doc.getString("state").equals("inactive")){
-        //         String username = doc.getString("userName");
+            
+            
+        //     String state = doc.getString("state");
+        //     if (state != null && state.equals("active")) {
+        //         String username = doc.getString("username");
         //         credCollection.updateOne(Filters.eq("username", username), Updates.set("state", "inactive"));
+        //         return true;
         //     }
         // }
-
-        FindIterable<Document> docs = credCollection.find();
-        MongoCursor<Document> cursor = docs.iterator();
-        
-        while(cursor.hasNext()) {
-            Document doc = cursor.next();
-            
-            
-            String state = doc.getString("state");
-            if (state != null && state.equals("active")) {
-                String username = doc.getString("username");
-                credCollection.updateOne(Filters.eq("username", username), Updates.set("state", "inactive"));
-                return true;
-            }
-        }
-        return false;
+        // return false;
+        credCollection.updateOne(Filters.eq("username", username), Updates.set("state", "inactive"));
+        return true;
 
     }
 

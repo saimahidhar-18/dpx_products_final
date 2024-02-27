@@ -175,7 +175,7 @@ public class DpxResource {
     @Path("/{productid}/publish")
     public String publishProduct(@PathParam("productid") long id){
         dpxservice1.publishProduct(id);
-        return id + "  hoooo";
+        return id + "Successfull!!!!";
     }
 
 

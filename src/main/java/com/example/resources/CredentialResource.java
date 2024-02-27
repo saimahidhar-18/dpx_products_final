@@ -4,6 +4,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -64,10 +65,11 @@ public class CredentialResource {
     @Path("/logout")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String logout(){
-        if(credentialServices.userLogout()) return "Successfully loggedOut!!!";
+    public String logout(@HeaderParam("Username") String username){
+        if(credentialServices.userLogout(username)) return "Successfully loggedOut!!!";
         return "something went wrong";
     }
+
 
 
 

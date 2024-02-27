@@ -1,0 +1,11 @@
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:18:09 +0530] "GET /dpx HTTP/1.1" 403 62 http-bio-9090-exec-1 258
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:18:09 +0530] "GET /favicon.ico HTTP/1.1" 404 - http-bio-9090-exec-3 0
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:18:27 +0530] "GET /dpx/user/login HTTP/1.1" 200 12 http-bio-9090-exec-6 15
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:18:55 +0530] "POST /dpx/user/login HTTP/1.1" 200 42 http-bio-9090-exec-7 663
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:19:30 +0530] "GET /dpx/data_products HTTP/1.1" 403 62 http-bio-9090-exec-8 60
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:19:46 +0530] "GET /dpx/data_products HTTP/1.1" 200 2311 http-bio-9090-exec-9 152
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:20:15 +0530] "GET /dpx/data_products/111 HTTP/1.1" 200 587 http-bio-9090-exec-10 46
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:20:22 +0530] "GET /dpx/data_products/111/datalist HTTP/1.1" 200 709 http-bio-9090-exec-10 77
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:20:30 +0530] "GET /dpx/data_products/111/userlist HTTP/1.1" 200 111 http-bio-9090-exec-10 63
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:21:06 +0530] "GET /dpx/user/logout HTTP/1.1" 200 25 http-bio-9090-exec-10 16
+0:0:0:0:0:0:0:1 - - [27/Feb/2024:10:21:10 +0530] "GET /dpx/data_products/111/userlist HTTP/1.1" 403 35 http-bio-9090-exec-10 38

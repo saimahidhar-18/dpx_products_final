@@ -43,7 +43,7 @@ public class DataListServices {
 
         for (Document doc : doclist) {
             DataList dataList = new DataList();
-            dataList.setUrlId(doc.getLong("urlId"));
+            dataList.setid(doc.getLong("id"));
             dataList.setUrlName(doc.getString("urlName"));
             dataList.setUrlDescription(doc.getString("urlDescription"));
             dataList.setCreationDate(doc.getString("creationDate"));
@@ -64,10 +64,10 @@ public class DataListServices {
 
         if(doclist!=null){
             for (Document doc : doclist) {
-                long datalistId = doc.getLong("urlId");
+                long datalistId = doc.getLong("id");
                 if (datalistId == datalistid) {
                     DataList dataList = new DataList();
-                    dataList.setUrlId(doc.getLong("urlId"));
+                    dataList.setid(doc.getLong("id"));
                     dataList.setUrlName(doc.getString("urlName"));
                     dataList.setUrlDescription(doc.getString("urlDescription"));
                     dataList.setCreationDate(doc.getString("creationDate"));
@@ -93,9 +93,9 @@ public class DataListServices {
             }
 
 
-            newDataList.setUrlId((long)doclist.size()+211);
+            newDataList.setid((long)doclist.size()+211);
 
-            Document newDocList = new Document("urlId", newDataList.getUrlId())
+            Document newDocList = new Document("id", newDataList.getid())
                 .append("urlName", newDataList.getUrlName())
                 .append("urlDescription", newDataList.getUrlDescription())
                 .append("creationDate", newDataList.getCreationDate())
@@ -122,7 +122,7 @@ public class DataListServices {
     
             while (iterator.hasNext()) {
                 Document doc = iterator.next();
-                long currentDatalistId = doc.getLong("urlId");
+                long currentDatalistId = doc.getLong("id");
     
                 if (currentDatalistId == datalistid) {
                     iterator.remove();
@@ -144,7 +144,7 @@ public class DataListServices {
     
             while (iterator.hasNext()) {
                 Document doc = iterator.next();
-                long currentDatalistId = doc.getLong("urlId");
+                long currentDatalistId = doc.getLong("id");
     
                 if (currentDatalistId == datalistid) {
                     

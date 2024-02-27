@@ -42,7 +42,7 @@ public class DpxServices {
             .append("status", "published")
             .append("producer", "Harry")
             .append("dataList", Arrays.asList(
-                new Document("urlId", 211L)
+                new Document("id", 211L)
                     .append("urlName", "dp1dl1")
                     .append("urlDescription", "llllllllllll")
                     .append("creationDate", "2003")
@@ -62,7 +62,7 @@ public class DpxServices {
             .append("status", "published")
             .append("producer","Harry")
             .append("dataList", Arrays.asList(
-                new Document("urlId", 211L)
+                new Document("id", 211L)
                     .append("urlName", "dp2dl1")
                     .append("urlDescription", "llllllllllll")
                     .append("creationDate", "2003")
@@ -82,7 +82,7 @@ public class DpxServices {
             .append("status", "published")
             .append("producer", "Harry")
             .append("dataList", Arrays.asList(
-                new Document("urlId", 211L)
+                new Document("id", 211L)
                     .append("urlName", "dp3dl1")
                     .append("urlDescription", "llllllllllll")
                     .append("creationDate", "2003")
@@ -101,7 +101,7 @@ public class DpxServices {
             .append("status", "published")
             .append("producer", "Harry")
             .append("dataList", Arrays.asList(
-                new Document("urlId", 211L)
+                new Document("id", 211L)
                     .append("urlName", "dp4dl1")
                     .append("urlDescription", "llllllllllll")
                     .append("creationDate", "2003")

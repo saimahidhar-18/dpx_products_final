@@ -3,7 +3,7 @@ package com.example.models;
 
 
 public class DataList {
-    private long urlId;
+    private long id;//id
     private String urlName;
     private String urlDescription;
     private String creationDate;
@@ -14,9 +14,9 @@ public class DataList {
 
     }
 
-    public DataList(long urlId, String urlName, String urlDescription, String creationDate, String lastUpdateDate,
+    public DataList(long id, String urlName, String urlDescription, String creationDate, String lastUpdateDate,
             String copyUrl) {
-        this.urlId = urlId;
+        this.id = id;
         this.urlName = urlName;
         this.urlDescription = urlDescription;
         this.creationDate = creationDate;
@@ -24,12 +24,12 @@ public class DataList {
         this.copyUrl = copyUrl;
     }
 
-    public long getUrlId() {
-        return urlId;
+    public long getid() {
+        return id;
     }
 
-    public void setUrlId(long urlId) {
-        this.urlId = urlId;
+    public void setid(long id) {
+        this.id = id;
     }
 
     public String getUrlName() {

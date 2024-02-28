@@ -1,0 +1,4 @@
+0:0:0:0:0:0:0:1 - - [28/Feb/2024:10:34:43 +0530] "GET /dpx/data_products/ HTTP/1.1" 200 2311 http-bio-9090-exec-2 584
+0:0:0:0:0:0:0:1 - - [28/Feb/2024:10:34:47 +0530] "GET /dpx/data_products/da HTTP/1.1" 500 10445 http-bio-9090-exec-3 119
+0:0:0:0:0:0:0:1 - - [28/Feb/2024:10:35:00 +0530] "GET /dpx/data_products/111 HTTP/1.1" 200 587 http-bio-9090-exec-5 27
+0:0:0:0:0:0:0:1 - - [28/Feb/2024:10:35:04 +0530] "GET /dpx/data_products/111/fiajijdfa HTTP/1.1" 500 10445 http-bio-9090-exec-6 37

@@ -53,7 +53,24 @@ public class DpxResource {
     }
 
     @GET
-    @Path("/drafts")
+    @Path("published")
+    public Response getPublishedProducts(@HeaderParam("Username") String username){
+        try{
+            List<Product> products = dpxservice1.getPublishedProducts(username);
+            if(products.size()==0)
+                return Response.ok("products collection is empty").build();
+            else
+                return Response.ok(products).build();
+        }
+        catch (MongoException e) {
+            
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error getting the products.").build();
+        }
+        
+    }
+
+    @GET
+    @Path("/drafted")
     public Response getDraftProducts(@HeaderParam("Username") String username){
         try{
             List<Product> products = dpxservice1.getDraftProducts(username);

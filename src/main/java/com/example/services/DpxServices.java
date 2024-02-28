@@ -179,7 +179,7 @@ public class DpxServices {
             String producer = document.getString("producer");
             Product m1=new Product(id,name,desc, domain, status,producer);
 
-            if(status.equals("published")){
+            // if(status.equals("published")){
                 if(role.equals("producer"))
                     list.add(m1);
                 else{
@@ -194,7 +194,7 @@ public class DpxServices {
                     }
                 }
             
-            }
+          //  }
         }
 
             System.out.println(role+ " no wayy" +list.size());
@@ -215,6 +215,47 @@ public class DpxServices {
 
         // }
     
+    }
+
+    public List<Product> getPublishedProducts(String username){
+        String role = credentialService.getUserRole(username);
+        
+        FindIterable<Document> findIterable = collection.find();
+        Iterator<Document> iterator = findIterable.iterator();
+        List<Product> list=new ArrayList<>();
+
+        
+        while (iterator.hasNext()){
+            Document document = iterator.next();
+
+            long id = document.getLong("id");
+            String name = document.getString("name");
+            String desc = document.getString("description");
+            String domain = document.getString("domain");
+            String status = document.getString("status");
+            String producer = document.getString("producer");
+            Product m1=new Product(id,name,desc, domain, status,producer);
+
+             if(status.equals("published")){
+                if(role.equals("producer"))
+                    list.add(m1);
+                else{
+                    List<Document> doclist = document.getList("users", Document.class);
+                    if (doclist != null){
+                        for (Document doc : doclist){
+                            String currentUser = doc.getString("userName");
+                            if(currentUser.equals(username)){
+                                list.add(m1);
+                            }
+                        }
+                    }
+                }
+            
+            }
+        }
+
+            System.out.println(role+ " no wayy" +list.size());
+            return list;
     }
 
     public List<Product> getDraftProducts(String username){

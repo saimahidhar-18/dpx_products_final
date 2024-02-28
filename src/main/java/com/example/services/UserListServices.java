@@ -42,9 +42,9 @@ public class UserListServices {
             for (Document doc : doclist){
                 UserList userList = new UserList();
                 userList.setId(doc.getLong("id"));
-                userList.setUserName(doc.getString("userName"));
-                userList.setStage(credentialServices.getUserRole(userList.getUserName()));
-                //userList.setLastviewed();
+                userList.setUsername(doc.getString("userName"));
+                userList.setStage(credentialServices.getUserRole(userList.getUsername()));
+                userList.setLastviewed();
                 userlist.add(userList);
             }
             Product p = new Product(id, name, userlist);
@@ -54,7 +54,7 @@ public class UserListServices {
 
     }
 
-    public void addUser(long productid, String newUser ){
+    public boolean addUser(long productid, String newUser ){
         Document document = collection.find(Filters.eq("id", productid)).first();
 
         if (document != null){
@@ -63,13 +63,19 @@ public class UserListServices {
                 doclist = new ArrayList<>();
             }
             long id = doclist.size()+311;
-            Document newobj = new Document("userName", newUser)
-            .append("id", id)
-            .append("stage", credentialServices.getUserRole(newUser));
-            doclist.add(newobj);
-            collection.updateOne(Filters.eq("id", productid), Updates.set("users", doclist));
-
+            String stage = credentialServices.getUserRole(newUser);
+            if(stage != null){
+                Document newobj = new Document("userName", newUser)
+                .append("id", id)
+                .append("stage", credentialServices.getUserRole(newUser));
+                //.append("lastviewed", document);
+                doclist.add(newobj);
+                collection.updateOne(Filters.eq("id", productid), Updates.set("users", doclist));
+                return true;
+            }
+            
         }
+        return false;
     }
 
     public List<UserList> deleteUser(long productid, String userName){
@@ -94,7 +100,7 @@ public class UserListServices {
                 }
                 else{
                     UserList userList = new UserList();
-                    userList.setUserName(doc.getString("userName"));
+                    userList.setUsername(doc.getString("userName"));
                     userlist.add(userList);
                 }
             }

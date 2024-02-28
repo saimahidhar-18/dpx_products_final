@@ -40,6 +40,9 @@ public class DataListServices {
 
         List<Document> doclist = document.getList("dataList", Document.class);
         List<DataList> datalist = new ArrayList<>();
+        if (doclist == null) {
+            doclist = new ArrayList<>();
+        }
 
         for (Document doc : doclist) {
             DataList dataList = new DataList();
@@ -62,6 +65,9 @@ public class DataListServices {
         Document document = collection.find(Filters.eq("id", productid)).first();
         List<Document> doclist = document.getList("dataList", Document.class);
 
+        if (doclist == null) {
+            doclist = new ArrayList<>();
+        }
         if(doclist!=null){
             for (Document doc : doclist) {
                 long datalistId = doc.getLong("id");
